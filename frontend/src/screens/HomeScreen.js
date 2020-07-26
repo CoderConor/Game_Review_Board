@@ -1,24 +1,25 @@
 import React, { useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { listProducts} from '../actions/productActions';
 
 function HomeScreen(props) {
-
-    const [products, setProduct] = useState([]);
-// used to fetch the data
+    const productList = useSelector(state => state.productList);
+    const { products, loading, error} = productList;
+    const dispatch = useDispatch();
     useEffect(() => {
-        const fetchData = async () =>{
-            const {data} = await axios.get("/api/products");
-            setProduct(data);
-        } 
-        fetchData();
+       dispatch(listProducts());
         return () => {
             //
         };
         //the empty array assures this code runs after everything else in this component is ran
     }, [])
 
-    return <ul className="products">
+    // if loading or theres an error the messages will be displayed, if neither the data gets displayed
+    return loading ? <div>Loading...</div> :
+    error ? <div>{error}</div> :
+    <ul className="products">
         {
             products.map(product =>
                 <li key={product._id}>
