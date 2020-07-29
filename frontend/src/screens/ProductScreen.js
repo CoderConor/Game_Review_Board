@@ -18,7 +18,12 @@ function ProductScreen(props) {
       return () => {
         //   
       };
-  }, [])
+  }, []);
+
+//   add to favourites function, push to redirect to correct url
+  const handleAddtoFavourites = () =>{
+      props.history.push("/favourites/" + props.match.params.id )
+  }
   
     return <div>
         <div className="back-to-result">
@@ -68,7 +73,7 @@ function ProductScreen(props) {
                    <option></option>
                </li> 
                <li>
-                   <button className="button">Add to Cart</button>
+                   <button onClick= {handleAddtoFavourites} className="button">Add to Favourites</button>
                </li>
             </ul>
         </div>
