@@ -182,3 +182,54 @@ top: 1.5rem;
 .button:hover{
   border: .1rem #404040;
 }
+
+/* Favourites */
+
+.cart {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1rem;
+  align-items: flex-start;
+}
+.favourites-list {
+  flex: 3 1 60rem;
+}
+.favourites-action {
+  flex: 1 1 20rem;
+  background-color: #f0f0f0;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+.favourites-list-container {
+  padding: 0;
+  list-style-type: none;
+  padding: 1rem;
+}
+.favourites-list-container li {
+  display: flex;
+  justify-content: space-between;
+
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 0.1rem #c0c0c0 solid;
+}
+.favourites-list-container li img {
+  max-width: 10rem;
+  max-height: 10rem;
+}
+.favourites-list-container li:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.favourites-image {
+  flex: 1 1;
+}
+.favourites-name {
+  flex: 8 1;
+}
+.favourites-title {
+  flex: 1 1;
+  font-size: 2.5rem;
+  text-align: left;
+}

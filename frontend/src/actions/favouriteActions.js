@@ -1,4 +1,4 @@
-import {FAVOURITES_ADD_ITEM} from "../constants/favouritesConstants";
+import {FAVOURITES_ADD_ITEM, FAVOURITES_REMOVE_ITEM} from "../constants/favouritesConstants";
 
 const { default: Axios } = require("axios")
 
@@ -12,12 +12,17 @@ const addToFavourites = (productId) => async (dispatch) =>{
             product: data._id,
             name: data.name,
             image: data.image,
-            price: data.price
+            price: data.price,
+            desc: data.desc,
+            platform: data.platform
         }})
 
     } catch (error) {
 
     }
 }
+const removeFromFavourites = (productId) => (dispatch) =>{
+    dispatch({type: FAVOURITES_REMOVE_ITEM, payload: productId});
+}
 
-export {addToFavourites}
+export {addToFavourites, removeFromFavourites}

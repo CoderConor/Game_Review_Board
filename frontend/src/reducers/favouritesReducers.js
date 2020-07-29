@@ -1,4 +1,4 @@
-import { FAVOURITES_ADD_ITEM } from "../constants/favouritesConstants";
+import { FAVOURITES_ADD_ITEM, FAVOURITES_REMOVE_ITEM } from "../constants/favouritesConstants";
 
 function favouritesReducer(state={favouritesItems: []},action){
     switch(action.type){
@@ -9,7 +9,9 @@ function favouritesReducer(state={favouritesItems: []},action){
              return { favouritesItems:  state.favouritesItems.map(x=>x.product=== product.product? item: x) };
             }
             return { favouritesItems: [...state.favouritesItems, item]};
-            default:
+            case FAVOURITES_REMOVE_ITEM:
+                return{ favouritesItems: state.favouritesItems.filter(x => x.product!== action.payload)}
+            default: 
                 return state
     }
 }

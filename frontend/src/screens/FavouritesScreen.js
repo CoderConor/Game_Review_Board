@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { addToFavourites } from '../actions/favouriteActions';
+import { addToFavourites, removeFromFavourites } from '../actions/favouriteActions';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 function FavouritesScreen(props){
@@ -10,6 +11,9 @@ function FavouritesScreen(props){
 
     const productId = props.match.params.id;
     const dispatch= useDispatch();
+    const removeFromFavouritesHandler = (productId) => {
+        dispatch(removeFromFavourites(productId));
+    }
     // if the product id exists, add to favourites
     useEffect(() =>{
         if(productId){
@@ -24,9 +28,6 @@ function FavouritesScreen(props){
             <h3>
                 Favourites List
             </h3>
-            <div>
-                Price
-            </div>
         </li>
         {favouritesItems.length ===0 ? 
         <div>
@@ -34,17 +35,27 @@ function FavouritesScreen(props){
         </div>
         :
         favouritesItems.map( item =>
-        <div>
-            <img src={item.image} alt="product" />
+        <li>
+        <div className="favourites-image">
+        <img src={item.image} alt="product" /> 
+        </div>
             <div className="favourites-name">
-                <div>
+                <div className="favourites-title">
+                <Link to={"/product/" + item.product }>
                     {item.name}
+                    </Link>
                 </div>
                 <div>
-                    ${item.price}
+                    {item.platform}
+                </div>
+                <div>
+                    {item.desc}
+                   <button type="button" className="button" onClick={() => removeFromFavouritesHandler(item.product)}>
+                       Remove
+                   </button> 
                 </div>
             </div>
-        </div>
+        </li>
         )
         }
         </ul>
@@ -52,7 +63,6 @@ function FavouritesScreen(props){
     <div className="favourites-action">
 
     </div>
-        Favourites Screen
     </div>
 }
 
