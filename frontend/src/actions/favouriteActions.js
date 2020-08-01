@@ -1,9 +1,10 @@
 import {FAVOURITES_ADD_ITEM, FAVOURITES_REMOVE_ITEM} from "../constants/favouritesConstants";
+import Cookie from "js-cookie";
+import Axios from "axios";
 
-const { default: Axios } = require("axios")
 
 
-const addToFavourites = (productId) => async (dispatch) =>{
+const addToFavourites = (productId) => async (dispatch, getState) =>{
 
     try{
         const {data} = await Axios.get("/api/products/" + productId);
@@ -15,14 +16,20 @@ const addToFavourites = (productId) => async (dispatch) =>{
             price: data.price,
             desc: data.desc,
             platform: data.platform
-        }})
-
+        }
+    });
+    // gets the favourites items and save them to a cookie
+    const {favourites: {favouritesItems}} = getState();
+    Cookie.set("favouritesItems", JSON.stringify(favouritesItems));
     } catch (error) {
 
     }
 }
-const removeFromFavourites = (productId) => (dispatch) =>{
+const removeFromFavourites = (productId) => (dispatch, getState) =>{
     dispatch({type: FAVOURITES_REMOVE_ITEM, payload: productId});
+
+    const {favourites:{favouritesItems}} = getState();
+    Cookie.set("favouritesItems", JSON.stringify(favouritesItems));
 }
 
 export {addToFavourites, removeFromFavourites}

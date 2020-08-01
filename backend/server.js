@@ -1,8 +1,25 @@
 import express from 'express';
 import data from './data';
+import dotenv from 'dotenv';
+import config from './config';
+import mongoose from 'mongoose';
+import userRoute from './routes/userRoute';
+
+dotenv.config();
+// accessing the mongodb url located in config file
+const mongodbUrl = config.MONGODB_URL;
+
+mongoose.connect(mongodbUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology:true,
+  useCreateIndex: true
+}).catch(error => console.log(error.reason));
 
 // defining app by running express function
 const app = express();
+
+// implementing users router defined in userRoutes, concatinates the urls to create path
+app.use("/api/users", userRoute);
 
 // path for the endpoint, second get parameter is the handler function to respond to the request
 app.get("/api/products", (req, res) =>{

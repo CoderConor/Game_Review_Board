@@ -1,9 +1,12 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
+import Cookie from 'js-cookie';
 import { productListReducer, productDetailsReducer } from './reducers/productReducers';
 import {favouritesReducer} from './reducers/favouritesReducers';
 
-const initialState= {};
+const favouritesItems = Cookie.getJSON("favouritesItems") || [];
+// creating an initialState based on the item that comes from the cookie, allowing favourites to stay updated
+const initialState= { favourites: { favouritesItems }};
 const reducer = combineReducers({
     productList: productListReducer,
     productDetails: productDetailsReducer,

@@ -12,7 +12,7 @@ function FavouritesScreen(props){
     const productId = props.match.params.id;
     const dispatch= useDispatch();
     const removeFromFavouritesHandler = (productId) => {
-        dispatch(removeFromFavourites(productId));
+        dispatch(removeFromFavourites (productId));
     }
     // if the product id exists, add to favourites
     useEffect(() =>{
