@@ -3,6 +3,7 @@ import data from './data';
 import dotenv from 'dotenv';
 import config from './config';
 import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
 import userRoute from './routes/userRoute';
 
 dotenv.config();
@@ -17,7 +18,7 @@ mongoose.connect(mongodbUrl, {
 
 // defining app by running express function
 const app = express();
-
+app.use(bodyParser.json());
 // implementing users router defined in userRoutes, concatinates the urls to create path
 app.use("/api/users", userRoute);
 

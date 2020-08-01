@@ -3,14 +3,19 @@ import thunk from 'redux-thunk';
 import Cookie from 'js-cookie';
 import { productListReducer, productDetailsReducer } from './reducers/productReducers';
 import {favouritesReducer} from './reducers/favouritesReducers';
+import { userSigninReducer, userRegisterReducer } from './reducers/userReducers';
 
 const favouritesItems = Cookie.getJSON("favouritesItems") || [];
+const userInfo = Cookie.getJSON("userInfo") || null;
+
 // creating an initialState based on the item that comes from the cookie, allowing favourites to stay updated
-const initialState= { favourites: { favouritesItems }};
+const initialState= { favourites: { favouritesItems }, userSignin:{ userInfo } };
 const reducer = combineReducers({
     productList: productListReducer,
     productDetails: productDetailsReducer,
-    favourites: favouritesReducer
+    favourites: favouritesReducer,
+    userSignin: userSigninReducer,
+    userRegister: userRegisterReducer
 })
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, initialState, composeEnhancer(applyMiddleware(thunk))
