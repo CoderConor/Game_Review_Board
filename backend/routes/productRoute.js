@@ -11,6 +11,15 @@ router.get("/", async (req, res) => {
     res.send(products);
 });
 
+router.get("/:id", async (req, res) => {
+    const product = await Product.findOne({ _id: req.params.id });
+    if (product) {
+      res.send(product);
+    } else {
+      res.status(404).send({ message: "Game Not Found." });
+    }
+  });
+
 // api to create a product using the fields in the db
 router.post("/", isAuth, isAdmin, async (req, res) => {
     const product = new Product({
