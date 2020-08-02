@@ -8,6 +8,7 @@ import SigninScreen from './screens/SigninScreen';
 import { useSelector } from 'react-redux';
 import RegisterScreen from './screens/RegisterScreen';
 import ProductsScreen from './screens/ProductsScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 function App() {
 
@@ -50,6 +51,7 @@ const {userInfo} = userSignin;
         <main className="main">
           <div className="content">
             {/* parameter to get the id of the product, responding component is ProductScreen */}
+            <Route path="/profile" component={ProfileScreen} />
             <Route path="/product/:id" component={ProductScreen} />
             <Route path="/products" component={ProductsScreen} />
             <Route path="/signin" component={SigninScreen} />

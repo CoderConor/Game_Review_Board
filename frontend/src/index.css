@@ -292,3 +292,17 @@ th{
 tbody>tr:nth-child(odd){
   background-color: #f0f0f0
 }
+
+/* Profile */
+
+.profile{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.profile-info{
+  flex: 1 1 30rem;
+}
+.profile-favourites{
+  flex: 3 1 60rem;
+} 
