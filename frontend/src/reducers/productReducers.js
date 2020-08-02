@@ -5,7 +5,7 @@ function productListReducer(state = { products: [] }, action) {
     // when requesting prod, return a loading screen, on successful request of prod display the data
     switch (action.type) {
         case PRODUCT_LIST_REQUEST:
-            return { loading: true };
+            return { loading: true, products: [] };
         case PRODUCT_LIST_SUCCESS:
             return { loading: false, products: action.payload }
         case PRODUCT_LIST_FAIL:

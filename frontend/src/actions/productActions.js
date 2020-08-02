@@ -14,17 +14,26 @@ const listProducts = () => async (dispatch) => {
         dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
 
     }
-}
+};
 
 const saveProduct = (product) => async (dispatch, getState) =>{
     try {
         dispatch({type: PRODUCT_SAVE_REQUEST, payload: product});
         const {userSignin:{userInfo}} = getState();
-        const {data} = await Axios.post('/api/products', product, {
+        if(!product._id){
+          const {data} = await Axios.post('/api/products', product, {
             headers:{
-            'Autherization': 'Bearer' + userInfo.token
+            'Authorization': 'Bearer ' + userInfo.token
         }});
       dispatch({type:PRODUCT_SAVE_SUCCESS, payload: data});
+        } else {
+          const {data} = await Axios.put('/api/products/' + product._id, product, {
+            headers:{
+            'Authorization': 'Bearer ' + userInfo.token
+        }});
+      dispatch({type:PRODUCT_SAVE_SUCCESS, payload: data});
+        }
+        
     } catch (error) {
       dispatch({type:PRODUCT_SAVE_FAIL, payload: error.message});
 

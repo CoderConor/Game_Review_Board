@@ -5,6 +5,8 @@ import config from './config';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import userRoute from './routes/userRoute';
+import productRoute from './routes/productRoute';
+
 
 dotenv.config();
 // accessing the mongodb url located in config file
@@ -22,20 +24,23 @@ app.use(bodyParser.json());
 // implementing users router defined in userRoutes, concatinates the urls to create path
 app.use("/api/users", userRoute);
 
+app.use("/api/products", productRoute);
+
+
 // path for the endpoint, second get parameter is the handler function to respond to the request
-app.get("/api/products", (req, res) =>{
-  res.send(data.products);
-});
+// app.get("/api/products", (req, res) =>{
+//   res.send(data.products);
+// });
 
 // the id is a parameter going through this route, the api response for when a user clicks a certain game
-app.get("/api/products/:id", (req, res) =>{
-  const productId = req.params.id;
-  const product = data.products.find(x=>x._id ==productId);
-  if(product)
-  res.send(product);
-  else
-  res.status(404).send({msg: "Game not found."})
-});
+// app.get("/api/products/:id", (req, res) =>{
+//   const productId = req.params.id;
+//   const product = data.products.find(x=>x._id ==productId);
+//   if(product)
+//   res.send(product);
+//   else
+//   res.status(404).send({msg: "Game not found."})
+// });
 
 // an express js function to run the server on port 5000
 app.listen(5000, () => { console.log("Server started at http://localhost:5000")});
