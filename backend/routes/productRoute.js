@@ -12,7 +12,7 @@ router.get("/", async (req, res) => {
 });
 
 // api to create a product using the fields in the db
-router.post("/", async (req, res) => {
+router.post("/", isAuth, isAdmin, async (req, res) => {
     const product = new Product({
         name: req.body.name,
         image: req.body.image,
@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
     return res.status(500).send({ message: 'Error creating game listing.' });
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", isAuth, isAdmin, async (req, res) => {
     const productId = req.params.id;
     const product = await Product.findById(productId);
     if (product) {
@@ -46,6 +46,16 @@ router.put("/:id", async (req, res) => {
     return res.status(500).send({ message: ' Error in Updating Game info.' });
 
 });
+
+router.delete("/:id", isAuth, isAdmin, async (req, res) => {
+    const deletedProduct = await Product.findById(req.params.id);
+    if (deletedProduct) {
+      await deletedProduct.remove();
+      res.send({ message: "Game entry Deleted" });
+    } else {
+      res.send("Error in Deleting game entry.");
+    }
+  });
     
 
 
