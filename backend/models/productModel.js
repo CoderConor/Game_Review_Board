@@ -5,7 +5,11 @@ const reviewSchema = new mongoose.Schema(
     name: { type: String, required: true },
     rating: { type: Number, default: 0 },
     comment: { type: String, required: true },
-  });
+  },
+  {
+    timestamps: true,
+  }
+);
 // difining the schema to represent the games in the db
 const prodctSchema = new mongoose.Schema({
     name: { type: String, required: true },

@@ -1,8 +1,9 @@
 import React, { useEffect, useState, } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { detailsProduct } from '../actions/productActions';
+import { detailsProduct, saveProductReview } from '../actions/productActions';
 import Rating from '../components/Rating';
+import { PRODUCT_REVIEW_SAVE_RESET } from '../constants/productConstants';
 
 
 
@@ -16,19 +17,33 @@ function ProductScreen(props) {
   const { userInfo } = userSignin;
 // retrieving product, loading and error from productDetails
   const {product, loading, error} = productDetails;
+  const productReviewSave = useSelector((state) => state.productReviewSave);
+  const { success: productSaveSuccess } = productReviewSave;
   const dispatch = useDispatch();
 
   useEffect(() => {
+      if(productSaveSuccess){
+          alert("Review submitted successfully.");
+          setRating(0);
+          setComment('');
+          dispatch({type: PRODUCT_REVIEW_SAVE_RESET});
+      }
     //   property matches what the user entered in the url
       dispatch(detailsProduct(props.match.params.id));
       return () => {
         //   
       };
-  }, []);
+  }, [productSaveSuccess]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     // dispatch actions
+    dispatch(saveProductReview(props.match.params.id, {
+        name: userInfo.name,
+        rating: rating,
+        comment: comment,
+    })
+    );
   };
 
 //   add to favourites function, push to redirect to correct url
