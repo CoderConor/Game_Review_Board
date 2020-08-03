@@ -1,5 +1,11 @@
 import mongoose from 'mongoose';
 
+const reviewSchema = new mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    rating: { type: Number, default: 0 },
+    comment: { type: String, required: true },
+  });
 // difining the schema to represent the games in the db
 const prodctSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -9,6 +15,7 @@ const prodctSchema = new mongoose.Schema({
     description: { type: String, required: true },
     rating: { type: Number, default: 0, required: true },
     numReviews: { type: Number, default: 0, required: true },
+    reviews: [reviewSchema],
   });
   
   const productModel = mongoose.model('Product', prodctSchema);

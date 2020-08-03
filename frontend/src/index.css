@@ -98,6 +98,32 @@ a:hover{
 .product-rating{
   margin-bottom: 1rem;
 }
+/* Reviews */
+ul.review {
+  list-style-type: none;
+  padding: 0;
+}
+.review li {
+  margin: 1rem;
+  margin-bottom: 2rem;
+}
+.review li > div {
+  margin: 0.5rem;
+}
+/* rating */
+.rating span {
+  color: #ffb901;
+  font-size: 1.8rem;
+  margin: 0.1rem;
+}
+.rating span:last-child {
+  color: #444444;
+  font-size: 1.4rem;
+}
+a > .rating > span:last-child {
+  color: #0000ff;
+}
+
 /* Sidebar */
 .brand button {
   font-size: 3rem;
@@ -348,3 +374,4 @@ tbody>tr:nth-child(odd){
 .categories a:hover{
   background-color: #c0c0c0;
 }
+

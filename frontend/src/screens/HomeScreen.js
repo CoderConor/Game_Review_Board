@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { listProducts } from '../actions/productActions';
+import Rating from '../components/Rating';
 
 function HomeScreen(props) {
     // defined hook for search keyword
@@ -23,7 +24,7 @@ function HomeScreen(props) {
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(listProducts(category, searchKeyword))
-        
+
     }
 
     // if loading or theres an error the messages will be displayed, if neither the data gets displayed
@@ -54,13 +55,17 @@ function HomeScreen(props) {
                                     </div>
                                     <div className="product-brand">{product.brand}</div>
                                     <div className="product-price">{product.platform}</div>
-                                    <div className="product-description">{product.description}</div>
-                                    <div className="product-rating">{product.rating} Stars ({product.numReviews})</div>
+                                    <div className="product-description">{product.description} </div>
+                                    <div className="product-rating">
+                                    <Rating value={product.rating} 
+                                    text={product.numReviews + ' reviews'}
+                                        />
+                                    </div>
                                 </div>
                             </li>)
                     }
                 </ul>
-         } </>
+        } </>
 }
 
 
