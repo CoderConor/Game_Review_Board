@@ -16,7 +16,7 @@ export default {
             _id: 2,
             name: 'God of War',
             category: 'Most Popular',
-            image: '/images/1.jpg',
+            image: '/images/halo.jpg',
             price: 50,
             brand: 'Nike',
             rating: 4.5,

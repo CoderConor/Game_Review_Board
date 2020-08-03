@@ -12,8 +12,8 @@ import ProfileScreen from './screens/ProfileScreen';
 
 function App() {
 
-const userSignin = useSelector(state=>state.userSignin);
-const {userInfo} = userSignin;
+  const userSignin = useSelector(state => state.userSignin);
+  const { userInfo } = userSignin;
 
   const openMenu = () => {
     document.querySelector(".sidebar").classList.add("open");
@@ -33,19 +33,29 @@ const {userInfo} = userSignin;
             <Link to="/">Game Review Board</Link>
           </div>
           <div className="header-links">
-            <Link to="/favourites/:id?">Favourites</Link>
+            <Link to="/favourites">Favourites</Link>
             {
               userInfo ? <Link to="/profile">{userInfo.name}</Link> :
-            <Link to="/signin">Sign In</Link>
+                <Link to="/signin">Sign In</Link>
             }
+            {userInfo && userInfo.isAdmin && (
+              <div className="dropdown">
+                <a href='#'>Admin</a>
+                <ul className="dropdown-content">
+                  <li>
+                    <Link to="/products">Products</Link>
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
         </header>
         <aside className="sidebar">
           <h3>Shopping Categories</h3>
           <button className="sidebar-close-button" onClick={closeMenu}>x</button>
-          <ul>
-            <li><a href="index.html">Pants</a></li>
-            <li><a href="index.html">Shirts</a></li>
+          <ul className="categories">
+            <Link to="/category/Ps4">Ps4</Link>
+            <Link to="/category/Xbox">Xbox</Link>
           </ul>
         </aside>
         <main className="main">
@@ -56,6 +66,7 @@ const {userInfo} = userSignin;
             <Route path="/products" component={ProductsScreen} />
             <Route path="/signin" component={SigninScreen} />
             <Route path="/register" component={RegisterScreen} />
+            <Route path="/category/id" component={HomeScreen} />
             <Route path="/favourites/:id?" component={FavouritesScreen} />
             <Route path="/" exact={true} component={HomeScreen} />
           </div>

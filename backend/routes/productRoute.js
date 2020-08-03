@@ -7,7 +7,14 @@ const router = express.Router();
 
 // the router which returns a list of products to the user
 router.get("/", async (req, res) => {
-    const products = await Product.find({});
+    const category = req.query.category ? {category: req.query.category} : {};
+    const searchKeyword = req.query.searchKeyword ? {
+      name: {
+        $regex: req.query.searchKeyword,
+        $options: 'i'
+      }
+    } : {};
+    const products = await Product.find({ ...category, ...searchKeyword });
     res.send(products);
 });
 
