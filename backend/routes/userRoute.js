@@ -23,7 +23,6 @@ router.post('/signin', async (req, res) => {
     } else {
         res.status(401).send({ msg: 'Invalid login credentials.' });
     }
-
 })
 
 router.put('/:id', isAuth, async (req, res) => {
